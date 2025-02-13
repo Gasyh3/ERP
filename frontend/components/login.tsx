@@ -18,6 +18,8 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import Image from "next/image";
+import { WavyBackground } from "./ui/wavy-background";
 
 // Définition du schéma de validation avec Zod
 const FormSchema = z.object({
@@ -49,7 +51,7 @@ export default function Login() {
       .unwrap()
       .then((response) => {
         console.log("✅ Connexion réussie :", response);
-       
+
       })
       .catch((err) => {
         console.error("❌ Erreur d'authentification :", err);
@@ -67,44 +69,50 @@ export default function Login() {
   }, [isAuthentificated, error]);
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 space-y-6">
-        {/* Champ Username */}
-        <FormField
-          control={form.control}
-          name="username"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Nom d'utilisateur</FormLabel>
-              <FormControl>
-                <Input placeholder="ex: JohnDoe" {...field} />
-              </FormControl>
-              <FormDescription>Ceci est votre nom d'affichage.</FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+    <WavyBackground className="max-w-4xl mx-auto pb-10">
+      <div className="flex flex-col gap-8 items-center justify-center w-full max-w-md text-center border-spacing-1 shadow-xl p-8 bg-white rounded-lg">
 
-        {/* Champ Password */}
-        <FormField
-          control={form.control}
-          name="password"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Mot de passe</FormLabel>
-              <FormControl>
-                <Input type="password" placeholder="••••••" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+      <Image src={'/mastore_logo.png'} alt="Mastore Logo" width={200} height={200} />
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="w-full flex flex-col items-center space-y-6">
 
-        {/* Bouton Submit */}
-        <Button type="submit">
-          {loading ? "Connexion en cours..." : "Se connecter"}
-        </Button>
-      </form>
-    </Form>
+          <FormField
+            control={form.control}
+            name="username"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-[#002A46]">Nom d'utilisateur</FormLabel>
+                <FormControl>
+                  <Input placeholder="Mastore" className="w-[300px]" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          {/* Champ Password */}
+          <FormField
+            control={form.control}
+            name="password"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-[#002A46]">Mot de passe</FormLabel>
+                <FormControl>
+                  <Input type="password" className="w-[300px]" placeholder="••••••" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          {/* Bouton Submit */}
+          <Button className="bg-[#002A46] hover:bg-[#3A5BC7] w-[300px]" type="submit">
+            {"Se connecter"}
+          </Button>
+            <p className="text-[#002A46] text-xs">© {new Date().getFullYear()} MASTORE. Tous droits réservés.</p>
+        </form>
+      </Form>
+    </div>
+    </WavyBackground>
   );
 }
