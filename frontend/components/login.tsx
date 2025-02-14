@@ -20,6 +20,7 @@ import {
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
 import { WavyBackground } from "./ui/wavy-background";
+import { redirect } from 'next/navigation';
 
 // Définition du schéma de validation avec Zod
 const FormSchema = z.object({
@@ -43,6 +44,8 @@ export default function Login() {
     },
   });
 
+
+
   // Gestion de l'envoi du formulaire
   const onSubmit = (data: z.infer<typeof FormSchema>) => {
     console.log("🔄 Tentative de connexion avec :", data);
@@ -62,6 +65,8 @@ export default function Login() {
   useEffect(() => {
     if (isAuthentificated) {
       console.log("🟢 L'utilisateur est authentifié !");
+      redirect("/tableau-interventions");
+
     }
     if (error) {
       console.log("🔴 Une erreur est survenue :", error);
